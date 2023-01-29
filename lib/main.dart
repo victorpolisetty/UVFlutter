@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
-import 'package:location/location.dart';
+import 'package:uv_app/dInfo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -310,10 +310,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ElevatedButton(
                     onPressed: (){
                       callAPI();
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => const SecondRoute()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const DeterminatePage()),
+                      );
                     },
                     child: Text('CONTINUE', style: TextStyle(color: Colors.white),),
                     style: ButtonStyle(
