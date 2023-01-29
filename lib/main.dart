@@ -105,24 +105,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       Text("Age: ", style: TextStyle(fontSize: 20),),
-                      DropdownButton(
-                          menuMaxHeight: 200,
-                          value: ageValue,
-                          items:
-                          List<String>.generate(101, (int index) => '${index}')
-                              .map(
-                                (val) {
-                              return DropdownMenuItem<String>(
-                                value: val,
-                                child: val == '0' ? Text('Select Age') : Text(val),
-                              );
-                            },
-                          ).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              ageValue = value.toString();
-                            });
-                          }),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white, borderRadius: BorderRadius.circular(10)
+                        ),
+
+                        child: Center(
+                          child: DropdownButton(
+                              menuMaxHeight: 200,
+                              value: ageValue,
+                              items:
+                              List<String>.generate(101, (int index) => '${index}')
+                                  .map(
+                                    (val) {
+                                  return DropdownMenuItem<String>(
+                                    value: val,
+                                    child: val == '0' ? Text('Select Age') : Text(val),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  ageValue = value.toString();
+                                });
+                              }),
+                        ),
+                        )
                     ],
                   ),
                 ),
@@ -131,24 +141,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       Text("Weight: ", style: TextStyle(fontSize: 20),),
-                      DropdownButton(
-                          menuMaxHeight: 200,
-                          value: weightValue,
-                          items:
-                          List<String>.generate(250, (int index) => '${index + 99}')
-                              .map(
-                                (val) {
-                              return DropdownMenuItem<String>(
-                                value: val,
-                                child: val == '99' ? Text('Select Weight') : Text(val),
-                              );
-                            },
-                          ).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              weightValue = value.toString();
-                            });
-                          }),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.white, borderRadius: BorderRadius.circular(10)
+                        ),
+
+                        child: DropdownButton(
+                            menuMaxHeight: 200,
+                            value: weightValue,
+                            items:
+                            List<String>.generate(250, (int index) => '${index + 99}')
+                                .map(
+                                  (val) {
+                                return DropdownMenuItem<String>(
+                                  value: val,
+                                  child: val == '99' ? Text('Select Weight') : Text(val + ' lbs'),
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                weightValue = value.toString();
+                              });
+                            }),
+                      )
                     ],
                   ),
                 ),
@@ -157,7 +175,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       Text("Gender: ", style: TextStyle(fontSize: 20),),
-                      DropdownButton(
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.white, borderRadius: BorderRadius.circular(10)
+                        ),
+
+                        child: DropdownButton(
                           menuMaxHeight: 200,
                           value: genderValue,
                           items: [
@@ -177,6 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               genderValue = value.toString();
                             });
                           }),
+                      )
                     ],
                   ),
                 ),
@@ -185,7 +211,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     children: [
                       Text("Skin Color: ", style: TextStyle(fontSize: 20),),
-                      DropdownButton(
+
+                      Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                          color: Colors.white, borderRadius: BorderRadius.circular(10)
+                      ),
+
+                      child: DropdownButton(
                           menuMaxHeight: 200,
                           value: skinColorValue,
                           items: [
@@ -205,20 +238,26 @@ class _MyHomePageState extends State<MyHomePage> {
                               skinColorValue = value.toString();
                             });
                           }),
+                      )
                     ],
                   ),
                 ),
                 SizedBox(height: 50,),
-                TextButton(
-                  onPressed: () {
-                    callAPI();
-                  },
-                  child: Text(
-                    'CONTINUE',
-                    style: TextStyle(color: Colors.black, fontSize: 15),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: (){
+                      callAPI();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SecondRoute()),
+                      );
+                    },
+                    child: Text('CONTINUE', style: TextStyle(color: Colors.white),),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFF995201)),
+                    ),
                   ),
                 ),
-
               ],
             ),
         ),
