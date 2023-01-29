@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String ageValue = "0";
   String genderValue = "NA";
   String skinColorValue = "NA";
+  String heavilyClothed = "NA";
 
   @override
   void initState() {
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(110,50,0,0),
+                  padding: const EdgeInsets.fromLTRB(50,50,0,0),
                   child: Row(
                     children: [
                       Text("Age: ", style: TextStyle(fontSize: 20),),
@@ -122,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     (val) {
                                   return DropdownMenuItem<String>(
                                     value: val,
-                                    child: val == '0' ? Text('Select Age') : Text(val),
+                                    child: val == '0' ? Text('Select') : Text(val),
                                   );
                                 },
                               ).toList(),
@@ -137,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(95,20,0,0),
+                  padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
                       Text("Weight: ", style: TextStyle(fontSize: 20),),
@@ -157,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   (val) {
                                 return DropdownMenuItem<String>(
                                   value: val,
-                                  child: val == '99' ? Text('Select Weight') : Text(val + ' lbs'),
+                                  child: val == '99' ? Text('Select') : Text(val + ' lbs'),
                                 );
                               },
                             ).toList(),
@@ -171,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(100,20,0,0),
+                  padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
                       Text("Gender: ", style: TextStyle(fontSize: 20),),
@@ -187,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           value: genderValue,
                           items: [
                             DropdownMenuItem(
-                              child: Text("Select Gender"),
+                              child: Text("Select"),
                               value: "NA",
                             ),
                             DropdownMenuItem(
@@ -207,10 +208,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(80,20,0,0),
+                  padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
-                      Text("Skin Color: ", style: TextStyle(fontSize: 20),),
+                      Text("Skin Tone: ", style: TextStyle(fontSize: 20),),
 
                       Container(
                       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -223,13 +224,34 @@ class _MyHomePageState extends State<MyHomePage> {
                           value: skinColorValue,
                           items: [
                             DropdownMenuItem(
-                              child: Text("Select Skin Color"),
+                              child: Text("Select"),
                               value: "NA",
                             ),
                             DropdownMenuItem(
                               child: Icon(Icons.circle, color: Color(0xFFFFE2CC),),
                               value: "1",
                             ),
+                            DropdownMenuItem(
+                              child: Icon(Icons.circle, color: Color(0xFFfadbaf,),),
+                              value: "2",
+                            ),
+                            DropdownMenuItem(
+                              child: Icon(Icons.circle, color: Color(0xFFe5bd95),),
+                              value: "3",
+                            ),
+                            DropdownMenuItem(
+                              child: Icon(Icons.circle, color: Color(0xFFbf8b60),),
+                              value: "4",
+                            ),
+                            DropdownMenuItem(
+                              child: Icon(Icons.circle, color: Color(0xFF98562e),),
+                              value: "5",
+                            ),
+                            DropdownMenuItem(
+                              child: Icon(Icons.circle, color: Color(0xFF673929),),
+                              value: "6",
+                            ),
+
                             // DropdownMenuItem(
                             //     child: Text("Female"), value: "2"),
                           ],
@@ -242,15 +264,56 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(50,20,0,0),
+                  child: Row(
+                    children: [
+                      Text("Exposure Level: ", style: TextStyle(fontSize: 20),),
+
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.white, borderRadius: BorderRadius.circular(10)
+                        ),
+
+                        child: DropdownButton(
+                            menuMaxHeight: 200,
+                            value: heavilyClothed,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("Select"),
+                                value: "NA",
+                              ),
+                              DropdownMenuItem(
+                                child: Text("High"),
+                                value: "True",
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Low"),
+                                value: "False",
+                              ),
+
+                              // DropdownMenuItem(
+                              //     child: Text("Female"), value: "2"),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                heavilyClothed = value.toString();
+                              });
+                            }),
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(height: 50,),
                 Center(
                   child: ElevatedButton(
                     onPressed: (){
                       callAPI();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SecondRoute()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => const SecondRoute()),
+                      // );
                     },
                     child: Text('CONTINUE', style: TextStyle(color: Colors.white),),
                     style: ButtonStyle(
@@ -268,7 +331,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void callAPI() async {
     Map<String, dynamic> data;
     var url = Uri.parse(
-        'https://api.openuv.io/api/v1/uv?lat=$myLat&lng=$myLong&alt=$myAlt');
+        'https://api.openuv.io/api/v1/uv?lat=5.9823&lng=121.2135');
+    // var url = Uri.parse(
+    //     'https://api.openuv.io/api/v1/uv?lat=$myLat&lng=$myLong&alt=$myAlt');
     var apiKey = 'openuv-2lxbtldfix8q8-io';
 
     var headers = {
