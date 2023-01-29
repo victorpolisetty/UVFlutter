@@ -73,30 +73,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF4BB96),
+      backgroundColor: const Color(0xFFF4BB96),
       body:Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
+                const Text(
                     'WELCOME TO',
                     style: TextStyle(fontSize: 20),
                   ),
                 RichText(
-                  text: new TextSpan(
-                    style: new TextStyle(
+                  text: const TextSpan(
+                    style: TextStyle(
                       fontSize: 40.0,
                       color: Colors.black,
                     ),
                     children: <TextSpan>[
-                      new TextSpan(
+                      TextSpan(
                           text: 'Vita',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Color(0xFF995201))),
-                      new TextSpan(
+                      TextSpan(
                           text: 'Minutes',
-                          style: new TextStyle(
+                          style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.white)),
                     ],
                   ),
@@ -105,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.fromLTRB(50,50,0,0),
                   child: Row(
                     children: [
-                      Text("Age: ", style: TextStyle(fontSize: 20),),
+                      const Text("Age: ", style: TextStyle(fontSize: 20),),
 
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: Colors.white, borderRadius: BorderRadius.circular(10)
                         ),
@@ -118,12 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               menuMaxHeight: 200,
                               value: ageValue,
                               items:
-                              List<String>.generate(101, (int index) => '${index}')
+                              List<String>.generate(101, (int index) => '$index')
                                   .map(
                                     (val) {
                                   return DropdownMenuItem<String>(
                                     value: val,
-                                    child: val == '0' ? Text('Select') : Text(val),
+                                    child: val == '0' ? const Text('Select') : Text(val),
                                   );
                                 },
                               ).toList(),
@@ -141,10 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
-                      Text("Weight: ", style: TextStyle(fontSize: 20),),
+                      const Text("Weight: ", style: TextStyle(fontSize: 20),),
 
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             color: Colors.white, borderRadius: BorderRadius.circular(10)
                         ),
@@ -158,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   (val) {
                                 return DropdownMenuItem<String>(
                                   value: val,
-                                  child: val == '99' ? Text('Select') : Text(val + ' lbs'),
+                                  child: val == '99' ? const Text('Select') : Text(val + ' lbs'),
                                 );
                               },
                             ).toList(),
@@ -175,10 +175,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
-                      Text("Gender: ", style: TextStyle(fontSize: 20),),
+                      const Text("Gender: ", style: TextStyle(fontSize: 20),),
 
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             color: Colors.white, borderRadius: BorderRadius.circular(10)
                         ),
@@ -186,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: DropdownButton(
                           menuMaxHeight: 200,
                           value: genderValue,
-                          items: [
+                          items: const [
                             DropdownMenuItem(
                               child: Text("Select"),
                               value: "NA",
@@ -211,10 +211,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
-                      Text("Skin Tone: ", style: TextStyle(fontSize: 20),),
+                      const Text("Skin Tone: ", style: TextStyle(fontSize: 20),),
 
                       Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                           color: Colors.white, borderRadius: BorderRadius.circular(10)
                       ),
@@ -222,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: DropdownButton(
                           menuMaxHeight: 200,
                           value: skinColorValue,
-                          items: [
+                          items: const [
                             DropdownMenuItem(
                               child: Text("Select"),
                               value: "NA",
@@ -268,10 +268,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.fromLTRB(50,20,0,0),
                   child: Row(
                     children: [
-                      Text("Exposure Level: ", style: TextStyle(fontSize: 20),),
+                      const Text("Exposure Level: ", style: TextStyle(fontSize: 20),),
 
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                             color: Colors.white, borderRadius: BorderRadius.circular(10)
                         ),
@@ -279,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: DropdownButton(
                             menuMaxHeight: 200,
                             value: heavilyClothed,
-                            items: [
+                            items: const [
                               DropdownMenuItem(
                                 child: Text("Select"),
                                 value: "NA",
@@ -305,19 +305,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 50,),
+                const SizedBox(height: 50,),
                 Center(
                   child: ElevatedButton(
                     onPressed: (){
-                      callAPI();
+                      Future<Map<String, dynamic>> data = callAPI();
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const DeterminatePage()),
+                        MaterialPageRoute(builder: (context) => DeterminatePage()),
                       );
                     },
-                    child: Text('CONTINUE', style: TextStyle(color: Colors.white),),
+                    child: const Text('CONTINUE', style: TextStyle(color: Colors.white),),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Color(0xFF995201)),
+                      backgroundColor: MaterialStateProperty.all(const Color(0xFF995201)),
                     ),
                   ),
                 ),
@@ -328,7 +328,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void callAPI() async {
+  Future<Map<String, dynamic>> callAPI() async {
     Map<String, dynamic> data;
     var url = Uri.parse(
         'https://api.openuv.io/api/v1/uv?lat=5.9823&lng=121.2135');
@@ -338,7 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var headers = {
       'Content-type': 'application/json',
-      'x-access-token': '$apiKey'
+      'x-access-token': apiKey
     };
 
     var response = await http.get(url, headers: headers);
@@ -346,8 +346,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if (response.statusCode == 200) {
       data = jsonDecode(response.body);
       print(data);
+      return data;
     } else {
       print('Request failed with status: ${response.statusCode}');
+      data = {};
+      return data;
     }
   }
 

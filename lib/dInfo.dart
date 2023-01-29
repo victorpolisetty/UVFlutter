@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import 'dart:async';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
@@ -7,42 +6,111 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class DeterminatePage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  const DeterminatePage({Key? key}) : super(key: key);
+  DeterminatePage({Key? key}) : super(key: key);
+  // Map<String, dynamic> data;
+  // String age;
+  // String heavilyClothed;
 
   @override
   _DeterminatePageState createState() => _DeterminatePageState();
 }
 
 class _DeterminatePageState extends State<DeterminatePage> {
-  late Timer _timer;
+  bool startTimer = false;
+  @override
+  void initState() {
+    // widget.data = {};
+    // widget.age = "0";
+
+
+    // TODO: implement initState
+    // print("HERE");
+    // print(widget.data);
+    // print(widget.age);
+    // print(widget.heavilyClothed);
+    super.initState();
+  }
+  Timer _timer = Timer(Duration(milliseconds: 1), () {});
   double progressValue = 0;
   double secondaryProgressValue = 0;
   // ignore: sort_constructors_first
-  _DeterminatePageState() {
-    _timer = Timer.periodic(const Duration(milliseconds: 100), (Timer _timer) {
-      setState(() {
-        progressValue++;
-        secondaryProgressValue = secondaryProgressValue + 2;
-        if (progressValue == 100) {
-          _timer.cancel();
-        }
-        if (secondaryProgressValue > 100) {
-          secondaryProgressValue = 100;
-        }
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(title: const Text('Flutter circular progress bar')),
+        backgroundColor: const Color(0xFFF4BB96),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              getSegmentedProgressStyle()
+              getSegmentedProgressStyle(),
+              displayText()
             ]));
+  }
+
+  @override
+  Widget displayText() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5,0,0,0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:[
+      Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)
+        ),
+          child: Text("You are located in: San Francisco, CA")
+      ),
+    SizedBox(height: 20,),
+    Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    decoration: BoxDecoration(
+    color: Colors.white, borderRadius: BorderRadius.circular(10)
+    ),
+    child:
+    Text("Current UV Index: 8.16"),
+
+    ),
+          SizedBox(height: 10,),
+
+          Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    decoration: BoxDecoration(
+    color: Colors.white, borderRadius: BorderRadius.circular(10)
+    ),
+    child:
+    Text("Unsafe Exposure Warning: 30.24 minutes"),
+    ),
+          SizedBox(height: 10,),
+
+          !_timer.isActive ? Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    decoration: BoxDecoration(
+    color: Colors.white, borderRadius: BorderRadius.circular(10)
+    ),
+    child:
+     Text("All done! You've got your daily Vitamin D from the Sun!")
+    ) : Container(),
+          SizedBox(height: 10,),
+          ElevatedButton(onPressed: () {
+            startTimer = true;
+            _timer = Timer.periodic(const Duration(milliseconds: 500), (Timer _timer) {
+              setState(() {
+                progressValue++;
+                secondaryProgressValue = secondaryProgressValue + 2;
+                if (progressValue == 100) {
+                  _timer.cancel();
+                }
+                if (secondaryProgressValue > 100) {
+                  secondaryProgressValue = 100;
+                }
+              });
+            });
+          },
+              child: Text("Start Timer"))
+        ]
+      ),
+    );
   }
 
   @override
@@ -50,9 +118,9 @@ class _DeterminatePageState extends State<DeterminatePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-            height: 120,
-            width: 120,
+        SizedBox(
+            height: 0,
+            width: 0,
             child: SfRadialGauge(axes: <RadialAxis>[
               // Create primary radial axis
               RadialAxis(
@@ -64,9 +132,9 @@ class _DeterminatePageState extends State<DeterminatePage> {
                 startAngle: 270,
                 endAngle: 270,
                 radiusFactor: 0.8,
-                axisLineStyle: AxisLineStyle(
+                axisLineStyle: const AxisLineStyle(
                   thickness: 0.2,
-                  color: const Color.fromARGB(30, 0, 169, 181),
+                  color: Color(0xFF995201),
                   thicknessUnit: GaugeSizeUnit.factor,
                 ),
                 // pointers: <GaugePointer>[
@@ -94,16 +162,16 @@ class _DeterminatePageState extends State<DeterminatePage> {
                 startAngle: 270,
                 endAngle: 270,
                 radiusFactor: 0.8,
-                majorTickStyle: MajorTickStyle(
+                majorTickStyle: const MajorTickStyle(
                     length: 0.3,
                     thickness: 3,
                     lengthUnit: GaugeSizeUnit.factor,
-                    color: Colors.white),
+                    color: Color(0xFF995201)),
               )
             ])),
-        Container(
-          height: 120,
-          width: 120,
+        SizedBox(
+          height: 240,
+          width: 240,
           child: SfRadialGauge(axes: <RadialAxis>[
             // Create primary radial axis
             RadialAxis(
@@ -112,9 +180,9 @@ class _DeterminatePageState extends State<DeterminatePage> {
                 showLabels: false,
                 showTicks: false,
                 radiusFactor: 0.8,
-                axisLineStyle: AxisLineStyle(
+                axisLineStyle: const AxisLineStyle(
                   thickness: 0.3,
-                  color: const Color.fromARGB(40, 0, 169, 181),
+                  color: Color(0xFF995201),
                   thicknessUnit: GaugeSizeUnit.factor,
                 ),
                 pointers: <GaugePointer>[
@@ -130,7 +198,7 @@ class _DeterminatePageState extends State<DeterminatePage> {
                   GaugeAnnotation(
                       positionFactor: 0.2,
                       horizontalAlignment: GaugeAlignment.center,
-                      widget: Text(progressValue.toStringAsFixed(0) + '%'))
+                      widget: Text('Total Time: 8:41'))
                 ]),
             // Create secondary radial axis for segmented line
             RadialAxis(
@@ -143,10 +211,10 @@ class _DeterminatePageState extends State<DeterminatePage> {
               offsetUnit: GaugeSizeUnit.factor,
               minorTicksPerInterval: 0,
               radiusFactor: 0.8,
-              axisLineStyle: AxisLineStyle(
+              axisLineStyle: const AxisLineStyle(
                 thickness: 0.3,
-                color: Colors.white,
-                dashArray: <double>[4, 3],
+                color: Color(0xFFF4BB96),
+              dashArray: <double>[4, 3],
                 thicknessUnit: GaugeSizeUnit.factor,
               ),
             )
